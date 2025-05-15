@@ -2,11 +2,12 @@
 Autor: Nicole Haase Martínez
 Carnet: 23860
 Fecha de creación: 7/05/2025
-Ultima modificación: 9/05/2025
+Ultima modificación: 14/05/2025
 
 mejoras del diseño:
 no se esta usando uno de los botones del servo A y B
 los movimientos automatico se puede poner con Ax movimiento1, Ay movimiento2 y así
+Se podria hacer más corto el codigo?
 */
 
 #include <Servo.h>
@@ -61,6 +62,14 @@ void loop() {
   } else { // Modo automático
     digitalWrite(lauto, HIGH);
     digitalWrite(lmanu, LOW);
+
+    //llamar a la función
+    int valorJoyAY = analogRead(joyAy);
+    int valorJoyAX = analogRead(joyAx);
+    int valorJoyBY = analogRead(joyBy);
+    int valorJoyBX = analogRead(joyBx);
+
+    // cadena de if para llamar cada movimiento
     movimiento_1();
     movimiento_2();
     movimiento_3();
@@ -69,17 +78,20 @@ void loop() {
   
 }
 
-int movimientoS(int nombre_boton) {
+int movimientoS(int nombre_boton) { //es int ya que retorna un valor entero
   int lectura = analogRead(nombre_boton);
   int angulo = map(lectura, 0, 1023, 0, 180); // Conversión a grados del servo
   return angulo;
 }
 
 // Funciones automáticas
-void movimiento_1() {
-
-  
+void movimiento_1() { //movimiento aleatorio de prueba
+  myservo_Abajo.write(90);
+  myservo_lateral_izq.write(45);
+  myservo_lateral_der.write(135);
+  myservo_pinza.write(30);
 }
+
 void movimiento_2() {}
 void movimiento_3() {}
 void movimiento_4() {}
