@@ -32,6 +32,15 @@ const int lmanu = 8;  // LED modo manual
 
 const int modo = 2;   // DIP switch para seleccionar modo
 
+//Angulos de cada servo
+int angulo_Abajo = 90;
+int angulo_Izq = 90;
+int angulo_Der = 90;
+int angulo_Pinza = 90;
+
+// Margen de tolerancia para ignorar ruido
+const int zona_muerta = 80;
+
 void setup() {
   // Conectar motores a los pines
   myservo_Abajo.attach(3);
