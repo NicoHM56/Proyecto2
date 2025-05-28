@@ -112,11 +112,11 @@ void moverGrado(int pin, int &angulo, Servo &servo) {
 
 
 // Funciones automáticas
-void movimiento_1() { //movimiento aleatorio de prueba
-  myservo_Abajo.write(90);
-  myservo_lateral_izq.write(45);
-  myservo_lateral_der.write(135);
-  myservo_pinza.write(30);
+void movimiento_1() {
+  myservo_Abajo.write(35);
+  myservo_lateral_izq.write(80);
+  myservo_lateral_der.write(150);
+  myservo_pinza.write(60);
 }
 
 void movimiento_2() {}
