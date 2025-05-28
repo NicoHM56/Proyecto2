@@ -2,7 +2,7 @@
 Autor: Nicole Haase Martínez
 Carnet: 23860
 Fecha de creación: 7/05/2025
-Ultima modificación: 14/05/2025
+Ultima modificación: 28/05/2025
 
 mejoras del diseño:
 no se esta usando uno de los botones del servo A y B
@@ -63,10 +63,12 @@ void loop() {
     digitalWrite(lmanu, HIGH);
     digitalWrite(lauto, LOW);
 
-    myservo_Abajo.write(movimientoS(joyAx));
-    myservo_lateral_izq.write(movimientoS(joyAy));
-    myservo_lateral_der.write(movimientoS(joyBx));
-    myservo_pinza.write(movimientoS(joyBy));
+    moverGrado(joyAx, angulo_Abajo, myservo_Abajo);
+    moverGrado(joyAy, angulo_Izq, myservo_lateral_izq);
+    moverGrado(joyBx, angulo_Der, myservo_lateral_der);
+    moverGrado(joyBy, angulo_Pinza, myservo_pinza);
+
+    delay(20);  // Pequeña pausa para que el movimiento sea suave
 
   } else { // Modo automático
     digitalWrite(lauto, HIGH);
@@ -86,12 +88,28 @@ void loop() {
   }
   
 }
-
+/*
 int movimientoS(int nombre_boton) { //es int ya que retorna un valor entero
   int lectura = analogRead(nombre_boton);
   int angulo = map(lectura, 0, 1023, 0, 180); // Conversión a grados del servo
   return angulo;
+}*/
+
+void moverGrado(int pin, int &angulo, Servo &servo) {
+  int lectura = analogRead(pin);  // Lee el valor del joystick
+
+  // Si el joystick se mueve hacia izquierda/abajo más allá de la zona muerta
+  if (lectura < 512 - zona_muerta) { // eL 512 REPRESENTA 2.5v (0 a 1023)
+    if (angulo > 0) angulo--;        // Resta 1 grado si no está en el mínimo
+    servo.write(angulo);             // Mueve el servo al nuevo ángulo
+  } 
+  // Si el joystick se mueve hacia la derecha/arriba más allá de la zona muerta
+  else if (lectura > 512 + zona_muerta) {
+    if (angulo < 180) angulo++;      // Suma 1 grado si no está en el máximo
+    servo.write(angulo);             // Mueve el servo al nuevo ángulo
+  }
 }
+
 
 // Funciones automáticas
 void movimiento_1() { //movimiento aleatorio de prueba
