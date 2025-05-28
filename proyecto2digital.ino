@@ -119,6 +119,11 @@ void movimiento_1() {
   myservo_pinza.write(60);
 }
 
-void movimiento_2() {}
+void movimiento_2() {
+  myservo_Abajo.write(180);
+  myservo_lateral_izq.write(120);
+  myservo_lateral_der.write(45);
+  myservo_pinza.write(90);
+}
 void movimiento_3() {}
 void movimiento_4() {}
