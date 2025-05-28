@@ -32,11 +32,7 @@ const int lmanu = 8;  // LED modo manual
 
 const int modo = 2;   // DIP switch para seleccionar modo
 
-//Angulos de cada servo
-int angulo_Abajo = 90;
-int angulo_Izq = 90;
-int angulo_Der = 90;
-int angulo_Pinza = 90;
+
 
 // Margen de tolerancia para ignorar ruido
 const int zona_muerta = 80;
@@ -63,10 +59,10 @@ void loop() {
     digitalWrite(lmanu, HIGH);
     digitalWrite(lauto, LOW);
 
-    moverGrado(joyAx, angulo_Abajo, myservo_Abajo);
-    moverGrado(joyAy, angulo_Izq, myservo_lateral_izq);
-    moverGrado(joyBx, angulo_Der, myservo_lateral_der);
-    moverGrado(joyBy, angulo_Pinza, myservo_pinza);
+    moverGrado(joyAx, 90, myservo_Abajo);
+    moverGrado(joyAy, 90, myservo_lateral_izq);
+    moverGrado(joyBx, 90, myservo_lateral_der);
+    moverGrado(joyBy, 90, myservo_pinza);
 
     delay(20);  // Pequeña pausa para que el movimiento sea suave
 
@@ -81,10 +77,23 @@ void loop() {
     int valorJoyBX = analogRead(joyBx);
 
     // cadena de if para llamar cada movimiento
-    movimiento_1();
-    movimiento_2();
-    movimiento_3();
-    movimiento_4();
+
+    if (valorJoyAX != 512) { //lo de !=512 es para que funcione cuando el joystic se mueva en cualquier direccion de X
+      movimiento_1();
+    }
+    else if (valorJoyAY != 512) {
+      movimiento_2();
+    }
+    else if (valorJoyBX != 512) {
+      movimiento_3();
+    }
+    else if (valorJoyBY != 512) {
+      movimiento_4();
+    }
+    else {
+      //no pasa nada
+    }
+    
   }
   
 }
